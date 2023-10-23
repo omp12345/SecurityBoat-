@@ -1,0 +1,49 @@
+/* Taskdata.css */
+
+.task-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Adjust the width as needed */
+  grid-gap: 20px; /* Adjust the gap between items */
+  margin: 0 auto;
+  width: 1200px;
+  max-width: 1200px;
+  margin-left: 30px;
+}
+
+.task-card {
+  background: #f2f2f2; /* Light gray background */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: transform 0.2s; /* Add a subtle transform transition */
+}
+
+.task-card:hover {
+  transform: scale(1.05); /* Enlarge the card on hover */
+}
+
+/* Additional styles for title and description if needed */
+.task-card h3 {
+  font-size: 18px;
+  margin: 0;
+  color: #007bff; /* Blue color for the title */
+}
+
+.task-card p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.delete-button {
+  background-color: #f44336; /* Red background color for the delete button */
+  color: #fff; /* White text color */
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Add a smooth color transition */
+}
+
+.delete-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
