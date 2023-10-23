@@ -1,6 +1,8 @@
 const User = require('../model/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { blacklist } = require('../blacklist');
+
 
 // Controller for user registration
 exports.registerUser = async (req, res) => {
@@ -15,7 +17,7 @@ exports.registerUser = async (req, res) => {
 
     const user = new User({ username, email, password: hashedPassword, role });
     await user.save();
-    res.status(201).json({ message: `${username} registration is successful` });
+    res.status(201).json({ message: `${username} registration is successful`,registerdata:req.body });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -51,3 +53,14 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ message: 'Failed to authenticate' });
   }
 };
+
+
+exports.logoutuser=(req,res)=>{
+  const token = req.headers.authorization?.split(" ")[1]
+try {
+blacklist.push(token)
+   res.status(200).json({msg:"the user has been logged out"})
+} catch (error) {
+    res.status(400).json({err:error.message})
+} 
+}

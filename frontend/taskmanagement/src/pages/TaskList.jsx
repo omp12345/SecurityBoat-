@@ -1,29 +1,33 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import Taskdata from './Taskdata';
-import './Tasklist.css';
-import { useNavigate } from 'react-router-dom';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import Taskdata from "./Taskdata";
+import "./Tasklist.css";
+import { useNavigate } from "react-router-dom";
+import { url } from "../backend";
 
 function TaskList() {
-  const [newTask, setNewTask] = useState({ title: '', description: '', completed: false });
+  const [newTask, setNewTask] = useState({
+    title: "",
+    description: "",
+    completed: false,
+  });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check the user's login status when the component mounts
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
-  
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    // Handle checkboxes separately
-    if (type === 'checkbox') {
+    if (type === "checkbox") {
       setNewTask({
         ...newTask,
         [name]: checked,
+        completed: true,
       });
     } else {
       setNewTask({
@@ -33,42 +37,41 @@ function TaskList() {
     }
   };
 
-  const addTask = async () => {
+  const addTask = async (fun) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-
-      // Update the state with the new data immediately
-      const response = await axios.post('http://localhost:8080/api/task/tasks', newTask, {
-        headers: headers,
-      }).then((res)=>{
-        
-      })
-      
-      
-
-      // After successful submission, you can add the new blog to the addedBlogs state or perform any other actions as needed.
-
-    } 
-    
-    catch (error) {
-      console.error('An error occurred:', error.message);
+      const role = localStorage.getItem("role");
+      if (role === "user") {
+        const response = await axios
+          .post(`${url}/api/task/tasks`, newTask, {
+            headers: headers,
+          })
+          .then((res) => {});
+        alert("task is cerated");
+      } else {
+        alert("Admin can not add the data");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error.message);
     }
-    
   };
 
   return (
     <div className="task-list-container">
       <div className="task-input-form">
-        <h1 style={{marginTop:"40px"}}>Add Task</h1>
+        <h1 style={{ marginTop: "40px" }}>Add Task</h1>
         {!isLoggedIn && (
-          <p style={{color:"red"}}>Please login first to add a task.</p>
+          <p style={{ color: "white", fontSize: "30px" }}>
+           Please Login First to do operation of Taks.
+          </p>
         )}
         {isLoggedIn && (
           <div>
-            <input style={{marginTop:"20px"}}
+            <input
+              style={{ marginTop: "20px" }}
               type="text"
               placeholder="Title"
               name="title"
@@ -76,7 +79,8 @@ function TaskList() {
               onChange={handleInputChange}
             />
             <br />
-            <input style={{marginTop:"20px"}}
+            <input
+              style={{ marginTop: "20px" }}
               type="text"
               placeholder="Description"
               name="description"
@@ -85,19 +89,20 @@ function TaskList() {
             />
             <br />
             <label htmlFor="completed">Completed:</label>
-            <input style={{marginTop:"20px"}}
+            <input
+              style={{ marginTop: "20px" }}
               type="checkbox"
               name="completed"
+              value={newTask.completed}
               checked={newTask.completed}
               onChange={handleInputChange}
             />
             <button onClick={addTask}>Add Task</button>
-            
           </div>
         )}
       </div>
       <div>
-        <Taskdata  />
+        <Taskdata />
       </div>
     </div>
   );

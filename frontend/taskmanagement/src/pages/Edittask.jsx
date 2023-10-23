@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import './Edittask.css';
-import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState } from "react";
+import "./Edittask.css";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import { url } from "../backend";
 
 function Edittask() {
   const [editedTask, setEditedTask] = useState({
-    title: '',
-    description: '',
+    title: "",
+    description: "",
     completed: false,
   });
   const { id } = useParams();
@@ -16,7 +17,7 @@ function Edittask() {
     const { name, value, type, checked } = e.target;
 
     // For checkboxes, use the 'checked' property to determine the value
-    const newValue = type === 'checkbox' ? checked : value;
+    const newValue = type === "checkbox" ? checked : value;
 
     setEditedTask({
       ...editedTask,
@@ -26,34 +27,43 @@ function Edittask() {
 
   const handleEdit = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-
+      const role = localStorage.getItem("role");
       // Send a PATCH request to update the task
-      const response = await axios.patch(
-        `http://localhost:8080/api/task/tasks/${id}`,
-        editedTask,
-        {
-          headers: headers,
-        }
-      );
+      if (role === "admin") {
+        const response = await axios.patch(
+          `${url}/admin/admintask/${id}`,
+          editedTask,
+          {
+            headers: headers,
+          }
+        );
+      } else {
+        const response = await axios.patch(
+          `${url}/admin/admintask/${id}`,
+          editedTask,
+          {
+            headers: headers,
+          }
+        );
+      }
 
       // Show a success message or handle the response as needed
-      alert('Task Updated successfully');
+      alert("Task Updated successfully");
 
       // Redirect back to the task list page
-      navigate('/task');
+      navigate("/task");
     } catch (error) {
-      console.error('An error occurred:', error.message);
+      console.error("An error occurred:", error.message);
     }
   };
 
   const handleClose = () => {
-    // Redirect back to the task list page without saving changes
-    navigate('/task');
-  }
+    navigate("/task");
+  };
 
   return (
     <div className="edit-task-container">
@@ -74,8 +84,8 @@ function Edittask() {
         onChange={handleInputChange}
         placeholder="Enter new description"
       />
-      <label style={{color:"white"}}>
-        {editedTask.completed ? '✅ Completed' : '⏳ Pending'}:
+      <label style={{ color: "white" }}>
+        {editedTask.completed ? "✅ Completed" : "⏳ Pending"}:
         <input
           type="checkbox"
           name="completed"

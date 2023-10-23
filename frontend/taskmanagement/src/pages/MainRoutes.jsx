@@ -14,7 +14,9 @@ function MainRoutes() {
 <Route path='/login' element={<Login/>} ></Route>
 <Route path='/register' element={<Register/>} ></Route>
 <Route path='/task' element={<TaskList/>} ></Route>
-<Route path='task/task/:id' element={<Edittask/>}></Route>
+<Route path='/task/task/:id' element={<Edittask/>}></Route>
+
+
 
     </Routes>
   )

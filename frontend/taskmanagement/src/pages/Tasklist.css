@@ -1,4 +1,4 @@
-/* taskList.css */
+
 .task-list-container {
     display: flex;
    margin-left: 20px;
@@ -21,7 +21,7 @@
   }
 
   
-  /* CSS for the task input form */
+  
 .task-input-form {
     display: flex;
     flex-direction: column;
@@ -29,7 +29,7 @@
     align-items: center;
   }
   
-  /* Style the input fields */
+  
   .task-input-form input {
     padding: 8px;
     border: 1px solid #ccc;
@@ -38,13 +38,12 @@
     max-width: 300px;
   }
   
-  /* Style the checkbox */
   .task-input-form input[type="checkbox"] {
-    width: auto; /* Adjust the width as needed */
+    width: auto; 
     margin-right: 10px;
   }
   
-  /* Style the button */
+ 
   .task-input-form button {
     padding: 8px 16px;
     background-color: #007BFF;
@@ -54,12 +53,8 @@
     cursor: pointer;
   }
   
-  /* Change button color on hover */
   .task-input-form button:hover {
     background-color: #0056b3;
   }
   
-  /* Add more styles as needed */
   
-  /* Add more CSS styles as needed */
-/* Tasklist.css */

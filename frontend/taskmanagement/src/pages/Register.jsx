@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Speech from 'react-speech';
-import './Registration.css';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState } from "react";
+import axios from "axios";
+import Speech from "react-speech";
+import "./Registration.css";
+import { useNavigate } from "react-router-dom";
+import { url } from "../backend";
 
 function Register() {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
+    username: "",
+    email: "",
+    password: "",
     role: "user",
   });
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
-  const [alrt, setAlrt] = useState('');
-  const [msg, setMsg] = useState('');
-  const [blankFieldMsg, setBlankFieldMsg] = useState(''); // Message for blank fields
-  const [invalidEmailMsg, setInvalidEmailMsg] = useState(''); // Message for invalid email format
+  const [alrt, setAlrt] = useState("");
+  const [msg, setMsg] = useState("");
+  const [blankFieldMsg, setBlankFieldMsg] = useState(""); // Message for blank fields
+  const [invalidEmailMsg, setInvalidEmailMsg] = useState(""); // Message for invalid email format
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
     // Clear the messages
-    setBlankFieldMsg('');
-    setInvalidEmailMsg('');
+    setBlankFieldMsg("");
+    setInvalidEmailMsg("");
   };
 
   const handleSubmit = (e) => {
@@ -33,25 +33,28 @@ function Register() {
 
     // Check if any of the form fields are empty
     if (!formData.username || !formData.email || !formData.password) {
-      setBlankFieldMsg('Please fill in all fields');
+      setBlankFieldMsg("Please fill in all fields");
     } else if (!isEmailValid(formData.email)) {
-      setInvalidEmailMsg('Invalid email format');
+      setInvalidEmailMsg("Invalid email format");
     } else {
       // Clear the messages
-      setBlankFieldMsg('');
-      setInvalidEmailMsg('');
+      setBlankFieldMsg("");
+      setInvalidEmailMsg("");
 
       axios
-        .post('http://localhost:8080/api/user/register', formData)
+        .post(`${url}/api/user/register`, formData)
         .then((res) => {
           console.log(res.data);
           setAlrt(res.data.message);
+          console.log(res.data.registerdata.role);
           speakNotification(res.data.message);
+          localStorage.setItem("role", res.data.registerdata.role);
+
           // Use history.push for navigation
         })
         .catch((error) => {
-          console.error('Registration failed:', error.message);
-         // Navigate to the error page
+          console.error("Registration failed:", error.message);
+          // Navigate to the error page
         });
     }
   };
@@ -63,7 +66,7 @@ function Register() {
   };
 
   const handleclick = () => {
-    navigate('/login'); // Navigate to the login page
+    navigate("/login");
   };
 
   const isEmailValid = (email) => {
@@ -116,14 +119,16 @@ function Register() {
             <option value="admin">admin</option>
           </select>
         </div>
-        {blankFieldMsg && <p style={{ color: 'red' }}>{blankFieldMsg}</p>}
-        {invalidEmailMsg && <p style={{ color: 'red' }}>{invalidEmailMsg}</p>}
-        {alrt && <p style={{color:"green"||"red", fontSize:"20px"}}>{alrt}</p>}
+        {blankFieldMsg && <p style={{ color: "red" }}>{blankFieldMsg}</p>}
+        {invalidEmailMsg && <p style={{ color: "red" }}>{invalidEmailMsg}</p>}
+        {alrt && (
+          <p style={{ color: "green" || "red", fontSize: "20px" }}>{alrt}</p>
+        )}
         <div className="om">
           <button type="submit">Register</button>
           <button
             onClick={handleclick}
-            style={{ color: 'teal' }}
+            style={{ color: "teal" }}
             type="submit"
             className="login-button"
           >
