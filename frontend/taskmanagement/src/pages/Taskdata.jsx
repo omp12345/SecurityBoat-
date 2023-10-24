@@ -8,6 +8,7 @@ function Taskdata() {
   const [taskdata, setTaskdata] = useState([]);
   const navigate = useNavigate();
   const role = localStorage.getItem("role");
+  const [status,setStatus]=useState(false)
 
   useEffect(() => {
     getTaskData();
@@ -24,6 +25,7 @@ function Taskdata() {
           headers: headers,
         });
         setTaskdata(res.data.reverse());
+        setStatus(true)
       } else {
         const res = await axios.get(`${url}/api/task/tasks`, {
           headers: headers,
@@ -53,10 +55,12 @@ function Taskdata() {
         await axios
           .delete(`${url}/api/task/tasks/${id}`, {
             headers: headers,
-          })
-          .then((res) => {
+          }).then((res)=>{
             getTaskData();
-          });
+          })
+         
+           
+         ;
       }
     } catch (error) {
       console.error("An error occurred:", error.message);
@@ -71,7 +75,8 @@ function Taskdata() {
     <>
       <h1>Task-List</h1>
       {taskdata.length === 0 ? (
-        <p>No tasks found.</p>
+        <p style={{color:"black"}}>Loading....</p>
+
       ) : (
         <div className="task-card-container">
           {taskdata?.map((task, index) => (

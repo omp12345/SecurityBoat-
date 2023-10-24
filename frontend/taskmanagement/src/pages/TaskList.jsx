@@ -15,7 +15,6 @@ function TaskList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
@@ -49,10 +48,13 @@ function TaskList() {
           .post(`${url}/api/task/tasks`, newTask, {
             headers: headers,
           })
-          .then((res) => {});
-        alert("task is cerated");
+          .then((res) => {
+            alert("Task is created");
+            navigate("/task");
+            window.location.reload(false); // Refresh the page without showing activity
+          });
       } else {
-        alert("Admin can not add the data");
+        alert("Admin cannot add data");
       }
     } catch (error) {
       console.error("An error occurred:", error.message);
@@ -65,7 +67,7 @@ function TaskList() {
         <h1 style={{ marginTop: "40px" }}>Add Task</h1>
         {!isLoggedIn && (
           <p style={{ color: "white", fontSize: "30px" }}>
-           Please Login First You are not Authorized
+            Please Login First You are not Authorized
           </p>
         )}
         {isLoggedIn && (
@@ -94,7 +96,6 @@ function TaskList() {
               type="checkbox"
               name="completed"
               value={newTask.completed}
-              checked={newTask.completed}
               onChange={handleInputChange}
             />
             <button onClick={addTask}>Add Task</button>

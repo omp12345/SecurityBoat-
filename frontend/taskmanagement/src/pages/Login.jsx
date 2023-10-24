@@ -8,7 +8,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [messageColor] = useState(""); // Removed unused state
+  const [messageColor] = useState(""); 
   const Navigate = useNavigate();
 
   const obj = {

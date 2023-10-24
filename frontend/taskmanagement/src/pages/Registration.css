@@ -67,6 +67,7 @@
         background-position:  center;
         
         background-size: cover;
+        
        
         background-image: url("https://img.freepik.com/free-psd/3d-icon-social-media-app_23-2150049569.jpg?size=626&ext=jpg&ga=GA1.2.1660271314.1697394009&semt=ais")
       }
@@ -74,9 +75,9 @@
         max-width: 100%;
       }
       .registration-container form  input{
-        background-color: transparent ;
+        background-color: white ;
         max-width: 80%;
-        color: black
+        color:black
         
        
       }
@@ -89,7 +90,7 @@
       }
       .registration-container form  h2{
         max-width: 100%;
-        color:rgb(50, 50, 64)
+        color:rgba(64, 55, 50, 0.464)
       }
       .om{
         width: 100%;

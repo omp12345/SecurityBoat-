@@ -16,8 +16,8 @@ function Register() {
 
   const [alrt, setAlrt] = useState("");
   const [msg, setMsg] = useState("");
-  const [blankFieldMsg, setBlankFieldMsg] = useState(""); // Message for blank fields
-  const [invalidEmailMsg, setInvalidEmailMsg] = useState(""); // Message for invalid email format
+  const [blankFieldMsg, setBlankFieldMsg] = useState(""); 
+  const [invalidEmailMsg, setInvalidEmailMsg] = useState(""); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,11 +50,11 @@ function Register() {
           speakNotification(res.data.message);
           localStorage.setItem("role", res.data.registerdata.role);
 
-          // Use history.push for navigation
+          
         })
         .catch((error) => {
           console.error("Registration failed:", error.message);
-          // Navigate to the error page
+          
         });
     }
   };
