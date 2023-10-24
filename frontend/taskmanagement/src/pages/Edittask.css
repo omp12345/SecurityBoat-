@@ -58,13 +58,9 @@
   background-color: #999;
 }
 
-@media (max-width: 768px) {
-.edit-task-container {
-  width: 80%;
-}
-}
 
-@media (max-width: 480px) {
+
+@media (min-width: 768px) and (max-width: 1024px) {
 .edit-task-container {
   width: 90%;
   padding: 10px;
@@ -77,4 +73,7 @@
 .edit-task-container input {
   padding: 3px;
 }
+}
+@media (min-width: 768px) and (max-width: 1024px){
+
 }

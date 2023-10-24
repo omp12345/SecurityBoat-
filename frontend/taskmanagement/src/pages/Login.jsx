@@ -64,7 +64,7 @@ function Login() {
       <h2>Login</h2>
       <label htmlFor="">Email:</label>
       <br />
-      <input
+      <input className="input1"
         style={{ color: "black" }}
         type="email"
         placeholder="Email"
@@ -74,7 +74,7 @@ function Login() {
       <br />
       <label htmlFor="">Password:</label>
       <br />
-      <input
+      <input className="2ndinput"
         style={{ color: "black" }}
         type="password"
         placeholder="Password"
@@ -91,7 +91,7 @@ function Login() {
         >
           Login
         </button>
-        <button
+        <button 
           onClick={handleclick}
           style={{ color: "black" }}
           className="register"
