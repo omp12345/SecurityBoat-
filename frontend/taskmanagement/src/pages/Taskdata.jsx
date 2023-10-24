@@ -70,25 +70,29 @@ function Taskdata() {
   return (
     <>
       <h1>Task-List</h1>
-      <div className="task-card-container">
-        {taskdata?.map((task, index) => (
-          <div className="task-card" key={index}>
-            <h3>{task.title}</h3>
-            <p>{task.description}</p>
-            {task.completed ? (
-              <span role="img" aria-label="Completed">
-                ✅
-              </span>
-            ) : (
-              <span role="img" aria-label="Pending">
-                ⏳
-              </span>
-            )}
-            <button onClick={() => handleDelete(task._id)}>Delete</button>
-            <button onClick={() => handleUpdate(task._id)}>Edit</button>
-          </div>
-        ))}
-      </div>
+      {taskdata.length === 0 ? (
+        <p>No tasks found.</p>
+      ) : (
+        <div className="task-card-container">
+          {taskdata?.map((task, index) => (
+            <div className="task-card" key={index}>
+              <h3>{task.title}</h3>
+              <p>{task.description}</p>
+              {task.completed ? (
+                <span role="img" aria-label="Completed">
+                  ✅
+                </span>
+              ) : (
+                <span role="img" aria-label="Pending">
+                  ⏳
+                </span>
+              )}
+              <button style={{ color: "red", backgroundColor: "black" }} onClick={() => handleDelete(task._id)}>Delete</button>
+              <button style={{ color: "green", backgroundColor: "navy" }} onClick={() => handleUpdate(task._id)}>Edit</button>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }

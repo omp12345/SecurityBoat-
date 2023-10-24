@@ -12,7 +12,7 @@ function Navbar() {
       const token = localStorage.getItem('token');
 
       if (!token) {
-        // User is not authenticated, no need to logout
+       
         return;
       }
 
@@ -25,9 +25,9 @@ function Navbar() {
       });
 
       if (response.status === 200) {
-        // Logout successful
-        localStorage.removeItem('token'); // Clear the token from localStorage
-        navigate('/login'); // Redirect to the login page
+       
+        localStorage.removeItem('token')
+        navigate('/login'); 
         alert('User Logout');
       } else {
         console.error('Logout failed.');

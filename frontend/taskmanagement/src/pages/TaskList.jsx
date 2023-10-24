@@ -15,7 +15,7 @@ function TaskList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check the user's login status when the component mounts
+    
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
@@ -65,7 +65,7 @@ function TaskList() {
         <h1 style={{ marginTop: "40px" }}>Add Task</h1>
         {!isLoggedIn && (
           <p style={{ color: "white", fontSize: "30px" }}>
-           Please Login First to do operation of Taks.
+           Please Login First You are not Authorized
           </p>
         )}
         {isLoggedIn && (
