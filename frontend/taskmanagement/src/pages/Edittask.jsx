@@ -43,7 +43,7 @@ function Edittask() {
         );
       } else {
         const response = await axios.patch(
-          `${url}/admin/admintask/${id}`,
+          `${url}/api/task/tasks/${id}`,
           editedTask,
           {
             headers: headers,
