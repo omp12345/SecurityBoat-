@@ -38,6 +38,7 @@ function Login() {
               localStorage.setItem("token", res.data.token);
               setMessage("Login successful!");
             }
+            Navigate("/task")
           })
           .catch((error) => {
             console.error("Login failed:", error);
